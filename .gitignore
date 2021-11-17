@@ -1,0 +1,7 @@
+*/*.xml
+*/*.png
+*/*.jpg
+
+!images/Cars74.png
+!generate/Z02rj2353.jpg
+!Electronic_car/Z02rj2353.jpg
