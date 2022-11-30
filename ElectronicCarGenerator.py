@@ -58,8 +58,8 @@ class ElectronicCarGenerator:
       label = self.annotations[selected_image]
       # print('finish select')
       
-      selected_generate =  random.randint(0,self.generate_len)
-      generate = cv2.imread(os.path.join(self.generate_path,self.generate_list[selected_generate]))
+      selected_generate =  random.randint(0,self.generate_len-1)
+      generate = cv2.imread(os.path.join(self.generate_path, self.generate_list[selected_generate]))
       # print('finish generate image load')
 
       name = self.images_list[selected_image] + '_' + self.generate_list[selected_generate]
