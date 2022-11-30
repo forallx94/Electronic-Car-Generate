@@ -14,21 +14,21 @@ class ElectronicCarGenerator:
     self.images_list = list()
 
     for file in file_list:
-      tree = parse(os.path.join(annotations_path,file[0:-4]+'.xml'))
+      tree = parse(os.path.join(annotations_path,file.rsplit('.')[0]+'.xml'))
       root = tree.getroot()
-      temp = list()
+      plate_annotation = list()
       for object in root.iter("object"):
-        temp.append([int(object.find("bndbox").findtext("xmin")),
+        plate_annotation.append([int(object.find("bndbox").findtext("xmin")),
                       int(object.find("bndbox").findtext("ymin")),
                       int(object.find("bndbox").findtext("xmax")),
                       int(object.find("bndbox").findtext("ymax"))])
-      if len(temp) != 1:
+      if len(plate_annotation) != 1:
         continue
       else:
         img = cv2.imread(os.path.join(images_path,file))
         self.images.append(img)
-        self.annotations += temp
-        self.images_list.append(file[0:-4])
+        self.annotations += plate_annotation
+        self.images_list.append(file.rsplit('.')[0])
 
     self.image_len = len(self.images_list)
     # print('finish image load')
@@ -41,7 +41,7 @@ class ElectronicCarGenerator:
     # for file in file_list:
     #   img = cv2.imread(os.path.join(generate_path,file))
     #   self.generate.append(img)
-    #   self.generate_list.append(file[0:-4])
+    #   self.generate_list.append(file.rsplit('.')[0])
     # self.generate_len = len(self.generate_list)
     
 
@@ -62,13 +62,13 @@ class ElectronicCarGenerator:
       generate = cv2.imread(os.path.join(self.generate_path,self.generate_list[selected_generate]))
       # print('finish generate image load')
 
-      name = self.generate_list[selected_generate]
+      name = self.images_list[selected_image] + '_' + self.generate_list[selected_generate]
       plate = cv2.resize(generate,(label[2]-label[0],label[3]-label[1]))
       car[label[1]:label[3],label[0]:label[2]] = plate
       # print('finish chage image')
 
       if save:
-          cv2.imwrite(self.save_path + name , car)
+          cv2.imwrite(os.path.join(self.save_path , name) , car)
           # print('finish save image')
       else:
           cv2.imshow(label, car)

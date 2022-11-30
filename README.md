@@ -7,7 +7,7 @@
 |-----|-----|
 |원본|![원본](images/Cars74.png)|
 |전기차 번호판|![전기 차량 번호판](generate/Z02rj2353.jpg)|
-|생성 전기차|![전기차량](Electronic_car/Z02rj2353.jpg)|
+|생성 전기차|![전기차량](Electronic_car/Cars74_Z02rj2353.jpg)|
 
 
 # Reference
